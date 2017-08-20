@@ -25,12 +25,19 @@ class Board():
             rec.draw(self.window)
             self.recs[y][x] = rec
 
+    def set(self, x, y, newvalue):
+        self.cells[y][x] = newvalue
+
+        color = "black" if newvalue else "white"
+        self.recs[y][x].setFill(color)
+
+
+    def get(self, x, y):
+        return self.cells[y][x]
+
     def randomize(self):
         for x, y in self.allpos():
-            self.cells[y][x] = randrange(2)
-
-            color = "black" if self.cells[y][x] else "white"
-            self.recs[y][x].setFill(color)
+            self.set(x, y, randrange(2))
 
     def allpos(self):
         for y in range(self.height):
