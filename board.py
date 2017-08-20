@@ -21,11 +21,9 @@ class Board():
                 Rectangle(
                     Point(x * self.cell_size, y * self.cell_size),
                     Point((x + 1) * self.cell_size, (y + 1) * self.cell_size))
-            rec.setFill('black')
+            rec.setFill('white')
             rec.draw(self.window)
             self.recs[y][x] = rec
-
-        self.randomize()
 
     def randomize(self):
         for x, y in self.allpos():
