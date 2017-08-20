@@ -14,26 +14,25 @@ class Board():
 
     def _initialize(self):
         self.cells = self.blank_field(0)
-        self.recs = self.blank_field(0)
+        self.recs = self.blank_field(None)
 
         for x, y in self.allpos():
-            self.cells[y][x] = randrange(2)
-            self.recs[y][x] = \
+            rec = \
                 Rectangle(
                     Point(x * self.cell_size, y * self.cell_size),
                     Point((x + 1) * self.cell_size, (y + 1) * self.cell_size))
-            self.recs[y][x].setFill('black')
+            rec.setFill('black')
+            rec.draw(self.window)
+            self.recs[y][x] = rec
 
-    def draw(self):
-        """
-        Draw entire board
-        """
+        self.randomize()
+
+    def randomize(self):
         for x, y in self.allpos():
-            rec = self.recs[y][x]
-            if self.cells[y][x]:
-                rec.draw(self.window)
-            else:
-                rec.undraw()
+            self.cells[y][x] = randrange(2)
+
+            color = "black" if self.cells[y][x] else "white"
+            self.recs[y][x].setFill(color)
 
     def allpos(self):
         for y in range(self.height):

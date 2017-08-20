@@ -17,10 +17,14 @@ def main():
     win = GraphWin("Game of Life", width, height, autoflush=False)
 
     b = Board(win, BOARD_WIDTH, BOARD_HEIGHT)
-    b.draw()
-    win.update()
 
-    win.getMouse()
+    clicked = False
+    while not clicked:
+        b.randomize()
+        update(2)
+
+        clicked = win.checkMouse()
+
     win.close()
 
 main()
