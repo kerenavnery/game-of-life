@@ -18,11 +18,12 @@ def main():
     win = GraphWin("Game of Life", width, height, autoflush=False)
 
     b = Board(win, BOARD_WIDTH, BOARD_HEIGHT)
+    b.randomize()
     update()
 
     clicked = False
     while not clicked:
-        b.randomize()
+        b.live()
         update(FPS)
 
         clicked = win.checkMouse()

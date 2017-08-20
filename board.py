@@ -47,3 +47,31 @@ class Board():
     def blank_field(self, default_value):
         return [[default_value for _ in range(self.width)]
                 for _ in range(self.height)]
+
+    def neighbours(self, x, y):
+        for yi in range(y - 1, y + 2):
+            for xi in range(x - 1, x + 2):
+                if xi <= 0 or yi <= 0:
+                    continue
+                if xi >= self.width or yi >= self.height:
+                    continue
+                if xi == x and yi == y:
+                    continue
+                yield (xi, yi)
+
+    def neighbour_sum(self, x, y):
+        return sum(self.get(xi, yi) for xi, yi in self.neighbours(x, y))
+
+    def live(self):
+        newcells = self.blank_field(0)
+        for x, y in self.allpos():
+            neisum = self.neighbour_sum(x, y)
+            newval = 0
+            if neisum == 2:
+                newval = self.get(x, y)
+            elif neisum == 3:
+                newval = 1
+            newcells[y][x] = newval
+
+        for x, y in self.allpos():
+            self.set(x, y, newcells[y][x])
