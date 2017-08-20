@@ -9,6 +9,7 @@ SQUARE_SIZE = 20
 BOARD_WIDTH = 10
 BOARD_HEIGHT = 10
 
+FPS = 1.0
 
 def main():
     width = BOARD_WIDTH * SQUARE_SIZE
@@ -17,11 +18,12 @@ def main():
     win = GraphWin("Game of Life", width, height, autoflush=False)
 
     b = Board(win, BOARD_WIDTH, BOARD_HEIGHT)
+    update()
 
     clicked = False
     while not clicked:
         b.randomize()
-        update(2)
+        update(FPS)
 
         clicked = win.checkMouse()
 
