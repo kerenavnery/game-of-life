@@ -49,6 +49,14 @@ class Board():
     def get(self, x, y):
         return self.cells[y][x]
 
+    def get_num_of_cells_in_state(self, state):
+        num_in_state = 0
+        for x, y in self.allpos():
+            if state == self.get(x,y):
+                num_in_state = num_in_state + 1
+        return num_in_state
+
+
     def initiailze(self):
         for x, y in self.allpos():
             self.set(x, y, "normal_cell_cycle")
@@ -127,4 +135,16 @@ class Board():
 
         for x, y in self.allpos():
             self.set(x, y, newcells[y][x])
+
+    def get_game_over(self):
+        game_over = False
+        total_cells_normal = self.get_num_of_cells_in_state("normal_cell_cycle")
+        total_cells_snc = self.get_num_of_cells_in_state("senescence")
+        total_cells_death = self.get_num_of_cells_in_state("cell_death")
+        total_cells_cancer = self.get_num_of_cells_in_state("cancer")
+        ## Normal cells are less than 0.1 of the cells
+        if (float(total_cells_normal)/(self.width * self.height)) < 0.5: #Must be smaller than 1
+            game_over = True
+        return game_over
+
 
