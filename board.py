@@ -99,14 +99,14 @@ class Board():
                     chance = randrange(1,1000)
                     if chance < 2:
                         newval = "cell_death"
-                    elif chance < 500:
+                    elif chance < 902:
                         newval = "senescence"
                     else:
                         newval = "cancer"
 
             elif currval == "senescence":
                 ## Chance to remain SnC
-                if (randrange(1,1000) > 900):
+                if (randrange(1,1000) < 900):
                     newval = currval
                 ## Chance to be removed by immune system
                 else:
@@ -117,7 +117,7 @@ class Board():
                 
             elif currval == "cancer":
                 ## Chance to remain cancer
-                if (randrange(1,1000) > 970):
+                if (randrange(1,1000) < 970):
                     newval = currval
                 ## Chance to be removed by immune system
                 else:
@@ -142,8 +142,8 @@ class Board():
         total_cells_snc = self.get_num_of_cells_in_state("senescence")
         total_cells_death = self.get_num_of_cells_in_state("cell_death")
         total_cells_cancer = self.get_num_of_cells_in_state("cancer")
-        ## Normal cells are less than 0.1 of the cells
-        if (float(total_cells_normal)/(self.width * self.height)) < 0.5: #Must be smaller than 1
+        ## Normal and senescence cells are less than 0.3 of the cells
+        if (float(total_cells_normal + total_cells_snc)/(self.width * self.height)) < 0.3: #Must be smaller than 1
             game_over = True
         return game_over
 
