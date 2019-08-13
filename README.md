@@ -31,6 +31,9 @@ Once critical stress is applied on a cell  - P53 ( transcription factor) is acti
 - Senscence - gray colored
 - Cell death (apoptosis or autophagy) - black colored
 
+### Advantages
+- This model allows cancer cell prolifiration (location dependent)
+
 ### Limitations:
 - This model does not allow cell reproduction
 - No neighborhood effects (cells do not influence each other)
