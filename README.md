@@ -40,6 +40,6 @@ Once critical stress is applied on a cell  - P53 ( transcription factor) is acti
 - Download ZIP of the repository
 - Extract files, and open `main.py` file with python (required)
 - This is a zero-player game! Simulation will start running by itself
-- `Game Over` will appear when less than 10% of the board are normal cells, to simulate tissue failiure
+- `Game Over` will appear when less than 30% of the board are normal or senescent cells, to simulate tissue failiure
 - Click the screen to exit
 - The interesting part is the code! Feel free to read, edit, comment and change parameters for better dynamics
