@@ -28,18 +28,17 @@ class Board():
     def set(self, x, y, newvalue):
         # There are 5 states:
         ## 1. Normal cell cycle - White
-        ## Cell cycle arrest - unseen in simulation
         ## 2. Senscence - Gray
         ## 3. Cell death - Black
-        ## 4. Cancer - Red
+        ## 4. cancer - Red
         self.cells[y][x] = newvalue
-        if newvalue == 1: # Normal
+        if newvalue == "normal_cell_cycle":
             color = "white"
-        elif newvalue == 2: #"SnC"
+        elif newvalue == "senescence":
             color = "gray"
-        elif newvalue == 3: #"death"
+        elif newvalue == "cell_death":
             color = "black"
-        elif newvalue == 4: #"cancer"
+        elif newvalue == "cancer":
             color = "red"
         else:
             color = "green"
@@ -52,7 +51,7 @@ class Board():
 
     def initiailze(self):
         for x, y in self.allpos():
-            self.set(x, y, 1) #Normal
+            self.set(x, y, "normal_cell_cycle")
 
     def allpos(self):
         for y in range(self.height):
@@ -83,38 +82,38 @@ class Board():
         for x, y in self.allpos():
             currval = self.get(x,y)
 
-            if currval == 1: # normal
-                ## remain healthy
+            if currval == "normal_cell_cycle":
+                ## Chance to remain healthy
                 if (randrange(1,1000) < 900):
                     newval = currval
-                ## experiance stress damage
+                ## Chance to experiance stress damage
                 else:
                     chance = randrange(1,1000)
                     if chance < 2:
-                        newval = 3 #death
+                        newval = "cell_death"
                     elif chance < 500:
-                        newval = 2 #Snc
+                        newval = "senescence"
                     else:
-                        newval = 4 #cancer
+                        newval = "cancer"
 
-            elif currval == 2: # Snc
-                ## remain SnC
+            elif currval == "senescence":
+                ## Chance to remain SnC
                 if (randrange(1,1000) > 900):
                     newval = currval
-                ## Be removed by immune system
+                ## Chance to be removed by immune system
                 else:
-                    newval = 3 # death
+                    newval = "cell_death"
                 
-            elif currval == 3: # death
+            elif currval == "cell_death":
                 newval = currval #What is dead may never die
                 
-            elif currval == 4: #Cancer
-                ## remain cancer
+            elif currval == "cancer":
+                ## Chance to remain cancer
                 if (randrange(1,1000) > 970):
                     newval = currval
-                ## Be removed by immune system
+                ## Chance to be removed by immune system
                 else:
-                    newval = 3 # death
+                    newval = "cell_death"
                 
             else:
                 print("Error")
@@ -128,3 +127,4 @@ class Board():
 
         for x, y in self.allpos():
             self.set(x, y, newcells[y][x])
+

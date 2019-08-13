@@ -28,6 +28,7 @@ def main():
 
         clicked = win.checkMouse()
 
+    ## TODO: add game over
     win.close()
 
 main()
