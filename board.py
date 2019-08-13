@@ -26,18 +26,33 @@ class Board():
             self.recs[y][x] = rec
 
     def set(self, x, y, newvalue):
+        # There are 5 states:
+        ## 1. Normal cell cycle - White
+        ## Cell cycle arrest - unseen in simulation
+        ## 2. Senscence - Gray
+        ## 3. Cell death - Black
+        ## 4. Cancer - Red
         self.cells[y][x] = newvalue
+        if newvalue == 1: # Normal
+            color = "white"
+        elif newvalue == 2: #"SnC"
+            color = "gray"
+        elif newvalue == 3: #"death"
+            color = "black"
+        elif newvalue == 4: #"cancer"
+            color = "red"
+        else:
+            color = "green"
 
-        color = "black" if newvalue else "white"
         self.recs[y][x].setFill(color)
 
 
     def get(self, x, y):
         return self.cells[y][x]
 
-    def randomize(self):
+    def initiailze(self):
         for x, y in self.allpos():
-            self.set(x, y, randrange(2))
+            self.set(x, y, 1) #Normal
 
     def allpos(self):
         for y in range(self.height):
@@ -64,13 +79,51 @@ class Board():
 
     def live(self):
         newcells = self.blank_field(0)
+        # Run over all the cells in the board, and decide what is the next value for each cell
         for x, y in self.allpos():
-            neisum = self.neighbour_sum(x, y)
-            newval = 0
-            if neisum == 2:
-                newval = self.get(x, y)
-            elif neisum == 3:
-                newval = 1
+            currval = self.get(x,y)
+
+            if currval == 1: # normal
+                ## remain healthy
+                if (randrange(1,1000) < 900):
+                    newval = currval
+                ## experiance stress damage
+                else:
+                    chance = randrange(1,1000)
+                    if chance < 2:
+                        newval = 3 #death
+                    elif chance < 500:
+                        newval = 2 #Snc
+                    else:
+                        newval = 4 #cancer
+
+            elif currval == 2: # Snc
+                ## remain SnC
+                if (randrange(1,1000) > 900):
+                    newval = currval
+                ## Be removed by immune system
+                else:
+                    newval = 3 # death
+                
+            elif currval == 3: # death
+                newval = currval #What is dead may never die
+                
+            elif currval == 4: #Cancer
+                ## remain cancer
+                if (randrange(1,1000) > 970):
+                    newval = currval
+                ## Be removed by immune system
+                else:
+                    newval = 3 # death
+                
+            else:
+                print("Error")
+           # neisum = self.neighbour_sum(x, y)
+            #newval = 0
+            #if neisum == 2:
+            #    newval = self.get(x, y)
+            #elif neisum == 3:
+            #    newval = 1
             newcells[y][x] = newval
 
         for x, y in self.allpos():

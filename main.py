@@ -4,10 +4,10 @@ from graphics import *
 
 from board import Board
 
-SQUARE_SIZE = 20
+SQUARE_SIZE = 10
 
-BOARD_WIDTH = 10
-BOARD_HEIGHT = 10
+BOARD_WIDTH = 100
+BOARD_HEIGHT = 50
 
 FPS = 1.0
 
@@ -18,7 +18,7 @@ def main():
     win = GraphWin("Game of Life", width, height, autoflush=False)
 
     b = Board(win, BOARD_WIDTH, BOARD_HEIGHT)
-    b.randomize()
+    b.initiailze()
     update()
 
     clicked = False
