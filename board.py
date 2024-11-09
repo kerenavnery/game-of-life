@@ -33,7 +33,9 @@ class Board():
         ## 4. cancer - Red
         self.cells[y][x] = newvalue
         if newvalue == "normal_cell_cycle":
-            color = "white"
+            # the color is defined as rgd to be yellow
+            color = "yellow"
+
         elif newvalue == "senescence":
             color = "gray"
         elif newvalue == "cell_death":
