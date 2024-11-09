@@ -37,3 +37,5 @@ def main():
     win.close()
 
 main()
+
+# That's all! we hope you enjoyed the game of life.
